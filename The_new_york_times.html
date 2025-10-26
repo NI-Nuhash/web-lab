@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The New York Times</title>
+    
+    <!-- Import Libre Baskerville for body text (closest free match to NYT Imperial) -->
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /*
+         * Final Font Strategy:
+         * 1. Headline/Logo: Use the 'Chomsky' font, a known open-source clone of the NYT Cheltenham masthead font.
+         * 2. Body Text: Use 'Libre Baskerville', the closest high-quality Google Font match for NYT Imperial.
+         */
+        
+        /* Custom Font-Face for Chomsky (NYT Headline/Logo Clone) */
+        @font-face {
+            font-family: 'Chomsky';
+            /* Using a publicly available CDN link for the font file */
+            src: url('https://cdn.jsdelivr.net/gh/fredrickbrennan/chomsky-font@master/Chomsky.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Global Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Fallback to Georgia, serif if custom fonts fail */
+            font-family: 'Libre Baskerville', Georgia, serif; 
+            background-color: #fff;
+            color: #000;
+            line-height: 1.6; /* Slightly looser line height for better body text readability */
+            font-size: 16px; /* Slightly larger base font size for body text */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Utility Class for the distinct NYT headline font (Chomsky) */
+        .nyt-headline-font {
+            font-family: 'Chomsky', serif;
+            font-weight: normal; /* Chomsky is a single weight font */
+            font-style: normal;
+        }
+
+        /* Header Section */
+        header {
+            padding: 10px 20px 0;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            font-size: 11px;
+            color: #666;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            line-height: 1.2;
+        }
+
+        .header-left span:first-child {
+            font-weight: 700;
+        }
+        
+        .header-left a {
+            color: #666;
+            margin-top: 5px;
+            line-height: 1.2;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .header-right a {
+            color: #000;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        
+        .header-right .subscribe-btn {
+            /* The subscribe button appears to be black on white in the top right corner of the image,
+               but the main black button is next to the log in link */
+            background-color: #000;
+            color: #fff;
+            padding: 6px 12px;
+            border: 1px solid #000;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .log-in {
+            font-size: 12px;
+            color: #000;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            text-align: center;
+            padding: 20px 0 10px;
+        }
+
+        .logo {
+            font-family: 'Chomsky', serif;
+            font-size: 40px;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+
+        /* Navigation */
+        nav {
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        nav a {
+            color: #000;
+            text-decoration: none;
+            padding-bottom: 2px;
+        }
+
+        nav a:hover {
+            text-decoration: none;
+            border-bottom: 2px solid #000;
+        }
+
+        /* Main Container */
+        .container {
+            display: grid;
+            grid-template-columns: 70% 30%; /* Adjusted ratio for closer match */
+            gap: 40px;
+            padding: 30px 20px;
+        }
+
+        /* Main Article Section */
+        .main-article {
+            padding-right: 20px;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .article-meta {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .article-meta a {
+            color: #666;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Chomsky', serif; /* Use Chomsky for the main headline */
+            font-size: 48px; /* Increased size to match image */
+            font-weight: normal;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            color: #000;
+        }
+
+        .article-body {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 17px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .article-body p {
+            margin-bottom: 25px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            padding-left: 20px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 40px;
+        }
+
+        .sidebar-title {
+            font-family: 'Chomsky', serif; /* Use Chomsky for section titles */
+            font-size: 24px; /* Increased size to match image */
+            font-weight: normal;
+            margin-bottom: 15px;
+            color: #000;
+        }
+        
+        /* Breaking News Specifics */
+        .breaking-news-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .breaking-news-item:last-of-type {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .breaking-news-title {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        .breaking-news-excerpt {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 5px;
+        }
+
+        .breaking-news-time {
+            font-size: 11px;
+            color: #999;
+        }
+
+        /* Most Popular Specifics */
+        .most-popular-list {
+            list-style: none;
+            counter-reset: item;
+        }
+
+        .most-popular-list li {
+            counter-increment: item;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .most-popular-list li:last-child {
+            border-bottom: none;
+        }
+
+        .most-popular-list li::before {
+            content: counter(item) ".";
+            font-weight: 700;
+            margin-right: 8px;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .most-popular-link {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 14px;
+            color: #000;
+            line-height: 1.4;
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .main-article {
+                border-right: none;
+                padding-right: 0;
+                border-bottom: 1px solid #e0e0e0;
+                padding-bottom: 30px;
+            }
+
+            .sidebar {
+                padding-left: 0;
+                padding-top: 30px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .article-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="header-left">
+                <span>TUESDAY, OCTOBER 22,</span>
+                <span>2025</span>
+                <a href="#">Today's Paper</a>
+            </div>
+            <div class="header-right">
+                <a href="#">U.S.</a>
+                <a href="#">International</a>
+                <a href="#">Canada</a>
+                <a href="#">Español</a>
+                <a href="#">中文</a>
+                <button class="subscribe-btn">Subscribe</button>
+                <a href="#" class="log-in">Log in</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Logo -->
+    <div class="logo-section">
+        <div class="logo nyt-headline-font">The New York Times</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#">WORLD</a>
+        <a href="#">U.S.</a>
+        <a href="#">POLITICS</a>
+        <a href="#">BUSINESS</a>
+        <a href="#">TECH</a>
+        <a href="#">SCIENCE</a>
+        <a href="#">HEALTH</a>
+        <a href="#">SPORTS</a>
+        <a href="#">ARTS</a>
+        <a href="#">BOOKS</a>
+        <a href="#">STYLE</a>
+        <a href="#">FOOD</a>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Main Content -->
+        <main>
+            <article class="main-article">
+                <div class="article-meta">
+                    <a href="#">Politics</a>
+                    <span>16m ago</span>
+                    <span>By Michael D. Shear</span>
+                </div>
+                <!-- Note: The line break in the title is added to match the layout in the image exactly -->
+                <h1 class="article-title nyt-headline-font">White House, in U-Turn, Says No Plans for<br>Trump and Putin to Meet Soon</h1>
+                
+                <div class="article-body">
+                    <p>The reversal came after President Trump suggested last week that he would meet President Vladimir Putin of Russia to discuss ways to end the war in Ukraine. White House officials scrambled to clarify the administration's position amid mounting criticism from allies.</p>
+                    
+                    <p>The announcement marks a significant shift in the administration's diplomatic approach and highlights the complex dynamics of U.S.-Russia relations amid ongoing global tensions.</p>
+                </div>
+            </article>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Breaking News Section -->
+            <section class="sidebar-section">
+                <h2 class="sidebar-title nyt-headline-font">Breaking News</h2>
+                
+                <div class="breaking-news-item">
+                    <h3 class="breaking-news-title">
+                        <a href="#">Stolen Louvre Jewelry Worth Over<br>$100 Million</a>
+                    </h3>
+                    <p class="breaking-news-excerpt">The eight pieces are unlikely to garner that price if split apart or melted, prosecutors say.</p>
+                    <div class="breaking-news-time">2h ago</div>
+                </div>
+
+                <div class="breaking-news-item">
+                    <h3 class="breaking-news-title">
+                        <a href="#">Amazon's Automation Push Could<br>Replace 500,000 Jobs</a>
+                    </h3>
+                    <p class="breaking-news-excerpt">Internal documents reveal ambitious plans for warehouse robotics.</p>
+                    <div class="breaking-news-time">4h ago</div>
+                </div>
+            </section>
+
+            <!-- Most Popular Section -->
+            <section class="sidebar-section">
+                <h2 class="sidebar-title nyt-headline-font">Most Popular</h2>
+                
+                <ol class="most-popular-list">
+                    <li>
+                        <a href="#" class="most-popular-link">Warner Bros. Discovery Considers Sale Amid Media Shake-up</a>
+                    </li>
+                    <li>
+                        <a href="#" class="most-popular-link">G.M. to Stop Making Electric Vans in Canada</a>
+                    </li>
+                    <li>
+                        <a href="#" class="most-popular-link">The Slow Death of the New York City Public Bench</a>
+                    </li>
+                </ol>
+            </section>
+        </aside>
+    </div>
+</body>
+</html>
